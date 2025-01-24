@@ -18,5 +18,17 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         boolean salir = false;
+
+        Usuarios usuario = new Usuarios("admin", "admin", true);
+
+        do {
+            switch (menu()) {
+                case "1" -> usuario.iniciarSesion();
+                case "2" -> {
+                    salir = true;
+                    System.out.println("Gracias por usar nuestra aplicación.");
+                }
+            }
+        } while(!salir);
     }
 }
