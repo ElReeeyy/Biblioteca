@@ -1,0 +1,3 @@
+public enum Categoria {
+    NOVELA, TERROR, CIENCIA_FICCION, HISTORIA, INFANTIL, JUVENIL
+}

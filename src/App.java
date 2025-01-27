@@ -19,7 +19,8 @@ public class App {
     public static void main(String[] args) throws Exception {
         boolean salir = false;
 
-        Usuarios usuario = new Usuarios("admin", "admin", true);
+        Usuarios usuario = new Usuarios("Alejandro", "admin", true);
+        Usuarios usuario2 = new Usuarios("Alberto", "1234", false);
 
         do {
             switch (menu()) {
