@@ -27,7 +27,9 @@ public class Libros {
         String categoria = teclado.nextLine();
     }
 
-    public void eliminarLibro() {}
+    public void eliminarLibro() {
+        
+    }
 
     public void buscarLibro() {
         System.out.println("¿De qué forma quieres buscar el libro?");

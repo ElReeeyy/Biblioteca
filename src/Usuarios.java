@@ -33,13 +33,30 @@ public class Usuarios {
         teclado.close();
     }
 
-    public void registrarUsuario() {
-        System.out.print("Vas a agregar un nuevo usuario.\nIntroduzca el nombre del usuario: ");
-        nombre = teclado.nextLine();
-        System.out.println("Introduzca la contrasenia del usuario: ");
-        contrasenia = teclado.nextLine();
-        System.out.println("Usuario registrado con éxito.");
-        teclado.close();
+    public void registrarUsuario(String nombre, String contrasenia, boolean esAdmin, Usuarios admin) {
+        if (admin.esAdmin) {
+            System.out.println("Vas a agregar un nuevo usuario.");
+            System.out.print("Introduzca el nombre del usuario: ");
+            nombre = teclado.nextLine();
+            System.out.print("Introduzca la contrasenia del usuario: ");
+            contrasenia = teclado.nextLine();
+            System.out.print("¿Es administrador? (s/n): ");
+            String respuesta = teclado.nextLine();
+            System.out.println("Usuario registrado con éxito.");
+        } else {
+            System.out.println("No tienes permisos para registrar un nuevo usuario.");
+        }
+    }
+
+    public void consultarUsuarios(Usuarios admin) {
+        if (admin.esAdmin) {
+            System.out.println("Usuarios registrados:");
+            System.out.println("Nombre: " + nombre);
+            System.out.println("Contrasenia: " + contrasenia);
+            System.out.println("Es administrador: " + esAdmin);
+        } else {
+            System.out.println("No tienes permisos para consultar los usuarios registrados.");
+        }
     }
 
     // GETTERS Y SETTERS
