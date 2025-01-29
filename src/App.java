@@ -12,8 +12,13 @@ public class App {
         System.out.println("--- BIENVENIDO A SU BIBLIOTECA FAVORITA ---");
         System.out.println("1. INICIAR SESION");
         System.out.println("2. SALIR");
-    
-        return teclado.nextLine();
+
+        if (teclado.hasNextLine()) {
+            return teclado.nextLine();
+        } else {
+            System.out.println("No se encontró una línea para leer.");
+            return "";
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -35,7 +40,7 @@ public class App {
 
         do {
             switch (menu()) {
-                case "1" -> usuario.iniciarSesion();
+                case "1" -> usuario.iniciarSesion(teclado);
                 case "2" -> {
                     salir = true;
                     System.out.println("Gracias por usar nuestra aplicación.");
