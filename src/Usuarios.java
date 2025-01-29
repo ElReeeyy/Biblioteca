@@ -5,8 +5,6 @@ public class Usuarios {
     private String contrasenia;
     private boolean esAdmin;
 
-    public static final Scanner teclado = new Scanner(System.in);
-
     public Usuarios(String nombre, String contrasenia, boolean esAdmin) {
         this.nombre = nombre;
         this.contrasenia = contrasenia;
@@ -15,25 +13,30 @@ public class Usuarios {
 
     // METODOS
 
-    public void iniciarSesion() {
+    public void iniciarSesion(Scanner teclado) {
         System.out.print("Nombre de usuario: ");
-        nombre = teclado.nextLine();
+        String nombreIngresado = teclado.nextLine();
+
         System.out.print("Contraseña: ");
-        contrasenia = teclado.nextLine();
+        String contraseniaIngresada = teclado.nextLine();
 
-        if (esAdmin == true) {
-            System.out.println("\n--- Bienvenido, " + nombre + ". Eres administrador ---");
-            System.out.println("¿Qué movimientos desea realizar?");
-            System.out.println("1. Registrar nuevo usuario");
-            System.out.println("2. Consultar informacion de usuarios registrados");
+        if (this.nombre.equals(nombreIngresado) && this.contrasenia.equals(contraseniaIngresada)) {
+            if (this.esAdmin) {
+                System.out.println("\n--- Bienvenido, " + this.nombre + ". Eres ADMINISTRADOR ---");
+                System.out.println("¿Qué movimientos desea realizar?");
+                System.out.println("1. Registrar nuevo usuario");
+                System.out.println("2. Consultar información de usuarios registrados");
+            } else {
+                System.out.println("\n--- Bienvenido, " + this.nombre + " ¿Qué movimientos desea realizar? ---");
+            }
         } else {
-            System.out.println("\n--- Bienvenido, " + nombre + "¿Qué movimientos desea realizar? ---");
+            System.out.println("Nombre de usuario o contraseña incorrectos.");
         }
-
-        teclado.close();
     }
 
     public void registrarUsuario(String nombre, String contrasenia, boolean esAdmin, Usuarios admin) {
+        Scanner teclado = new Scanner(System.in);
+
         if (admin.esAdmin) {
             System.out.println("Vas a agregar un nuevo usuario.");
             System.out.print("Introduzca el nombre del usuario: ");
@@ -46,6 +49,8 @@ public class Usuarios {
         } else {
             System.out.println("No tienes permisos para registrar un nuevo usuario.");
         }
+
+        teclado.close();
     }
 
     public void consultarUsuarios(Usuarios admin) {

@@ -6,17 +6,21 @@ public class App {
      * @author Alberto Garcia Izquierdo
      */
 
-     public static final Scanner teclado = new Scanner(System.in);
-
-     public static String menu() {
+     public static String menu(Scanner teclado) {
         System.out.println("--- BIENVENIDO A SU BIBLIOTECA FAVORITA ---");
         System.out.println("1. INICIAR SESION");
         System.out.println("2. SALIR");
-    
-        return teclado.nextLine();
+
+        if (teclado.hasNextLine()) { // verifica si hay una línea disponible para leer
+            return teclado.nextLine();
+        } else {
+            System.out.println("No se encontró una línea para leer.");
+            return "";
+        }
     }
 
     public static void main(String[] args) throws Exception {
+        Scanner teclado = new Scanner(System.in);
         boolean salir = false;
 
         // CREACION DE USUARIOS
@@ -34,8 +38,8 @@ public class App {
         Libros libro5 = new Libros("El principito", "Antoine de Saint-Exupéry", Categoria.JUVENIL, false);
 
         do {
-            switch (menu()) {
-                case "1" -> usuario.iniciarSesion();
+            switch (menu(teclado)) {
+                case "1" -> usuario.iniciarSesion(teclado);
                 case "2" -> {
                     salir = true;
                     System.out.println("Gracias por usar nuestra aplicación.");
