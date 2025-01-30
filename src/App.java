@@ -7,9 +7,11 @@ public class App {
      */
 
      public static String menu(Scanner teclado) {
-        System.out.println("--- BIENVENIDO A SU BIBLIOTECA FAVORITA ---");
-        System.out.println("1. INICIAR SESION");
-        System.out.println("2. SALIR");
+        System.out.println(" ---- BIENVENIDO A LA CASA DE LOS LIBROS  ---- ");
+        System.out.println("|           1. INICIAR SESION                 |");
+        System.out.println("|           2. ESTADISTICAS Y REPORTES        |");
+        System.out.println("|           0. SALIR                          |");
+        System.out.println(" -------------------------------------------- ");
 
         if (teclado.hasNextLine()) { // verifica si hay una línea disponible para leer
             return teclado.nextLine();
@@ -36,11 +38,24 @@ public class App {
         Libros libro3 = new Libros("La guerra de los mundos", "H.G. Wells", Categoria.CIENCIA_FICCION, true);
         Libros libro4 = new Libros("La historia interminable", "Michael Ende", Categoria.INFANTIL, true);
         Libros libro5 = new Libros("El principito", "Antoine de Saint-Exupéry", Categoria.JUVENIL, false);
+        Libros.listaLibros.add(libro1);
+        Libros.listaLibros.add(libro2);
+        Libros.listaLibros.add(libro3);
+        Libros.listaLibros.add(libro4);
+        Libros.listaLibros.add(libro5);
+
+        // Inicializar EstadisticasReportes
+        String[] librosPrestados = new String[100];
+        int[] cantidadPrestamos = new int[100];
+        String[] usuarios = new String[100];
+        int[] prestamosPorUsuario = new int[100];
+        EstadisticasReportes estadisticas = new EstadisticasReportes(librosPrestados, cantidadPrestamos, usuarios, prestamosPorUsuario, 0, 0);
 
         do {
             switch (menu(teclado)) {
-                case "1" -> usuario.iniciarSesion(teclado);
-                case "2" -> {
+                case "1" -> {}
+                case "2" -> {}
+                case "0" -> {
                     salir = true;
                     System.out.println("Gracias por usar nuestra aplicación.");
                 }

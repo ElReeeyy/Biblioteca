@@ -7,10 +7,7 @@ public class Libros {
     private Categoria categoria;
     private boolean prestado;
 
-    public ArrayList<Libros> listaLibros = new ArrayList<>();
-    
-    public static final Scanner teclado = new Scanner(System.in);
-
+    public static ArrayList<Libros> listaLibros = new ArrayList<>();
 
     public Libros(String nombre, String autor, Categoria categoria, boolean prestado) {
         this.nombre = nombre;
@@ -23,6 +20,8 @@ public class Libros {
     // METODOS
 
     public void agregarLibros(Libros libro) {
+        Scanner teclado = new Scanner(System.in);
+
         System.out.println("Introduzca el nombre del libro: ");
         String nombre = teclado.nextLine();
         System.out.println("Introduzca el autor del libro: ");
@@ -39,6 +38,8 @@ public class Libros {
     }
 
     public void eliminarLibro() {
+        Scanner teclado = new Scanner(System.in);
+
         System.out.println("Introduzca el nombre del libro que desea eliminar: ");
         String nombre = teclado.nextLine();
 
@@ -51,11 +52,59 @@ public class Libros {
     }
 
     public void buscarLibro() {
+        Scanner teclado = new Scanner(System.in);
+        
         System.out.println("¿De qué forma quieres buscar el libro?");
         System.out.println("1. Nombre");
         System.out.println("2. Autor");
         System.out.println("3. Categoría");
         String opcion = teclado.nextLine();
+
+        switch (opcion) {
+            case "1" -> {
+                System.out.println("Introduzca el nombre del libro: ");
+                String nombre = teclado.nextLine();
+                buscarLibrosPorTitulo(nombre);
+            }
+            case "2" -> {
+                System.out.println("Introduzca el autor del libro: ");
+                String autor = teclado.nextLine();
+                buscarLibrosPorAutor(autor);
+            }
+            case "3" -> {
+                System.out.println("Introduzca la categoría del libro: ");
+                String categoria = teclado.nextLine();
+                buscarLibrosPorCategoria(categoria);
+            }
+            default -> System.out.println("Opción no válida.");
+        }
+    }
+
+    public void buscarLibrosPorCategoria(String categoria) {
+        System.out.println("Libros en la categoría '" + categoria + "':");
+        for (Libros libro : listaLibros) {
+            if (libro.getCategoria().equals(categoria)) {
+                System.out.println("Título: " + libro.getNombre() + ", Autor: " + libro.getAutor());
+            }
+        }
+    }
+
+    public void buscarLibrosPorTitulo(String titulo) {
+        System.out.println("Buscando libros con el título '" + titulo + "':");
+        for (Libros libro : listaLibros) {
+            if (libro.getNombre().equals(titulo)) {
+                System.out.println("Título: " + libro.getNombre() + ", Autor: " + libro.getAutor() + ", Categoría: " + libro.getCategoria());
+            }
+        }
+    }
+
+    public void buscarLibrosPorAutor(String autor) {
+        System.out.println("Libros del autor '" + autor + "':");
+        for (Libros libro : listaLibros) {
+            if (libro.getAutor().equals(autor)) {
+                System.out.println("Título: " + libro.getNombre() + ", Categoría: " + libro.getCategoria());
+            }
+        }
     }
 
 

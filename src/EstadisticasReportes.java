@@ -7,7 +7,7 @@ public class EstadisticasReportes {
     private int totalPrestamos;
     private int prestamosActivos;
 
-    public EstadisticasReportes(String[] librosPrestados, int[] cantidadPrestamos, String usuarios,
+    public EstadisticasReportes(String[] librosPrestados, int[] cantidadPrestamos, String[] usuarios2,
             int[] prestamosPorUsuario, int totalPrestamos, int prestamosActivos) {
         this.librosPrestados = librosPrestados;
         this.cantidadPrestamos = cantidadPrestamos;
@@ -39,14 +39,18 @@ public class EstadisticasReportes {
 
 
     public void devolverPrestamo(String libro) {
+        boolean libroEncontrado = false;
         for (int i = 0; i < librosPrestados.length; i++) {
             if (librosPrestados[i] != null && librosPrestados[i].equals(libro)) {
+                libroEncontrado = true;
                 prestamosActivos--;
                 System.out.println("El libro '" + libro + "' ha sido devuelto.");
-                return;
+                break;
             }
         }
-        System.out.println("El libro '" + libro + "' no se encuentra en la lista de préstamos activos.");
+        if (!libroEncontrado) {
+            System.out.println("El libro '" + libro + "' no se encuentra en la lista de préstamos activos.");
+        }
     }
 
 
