@@ -6,7 +6,7 @@ public class Usuarios {
     private String contrasenia;
     private boolean esAdmin;
     
-    private static ArrayList<Usuarios> listaUsuarios = new ArrayList<>();
+    public static  ArrayList<Usuarios> listaUsuarios = new ArrayList<>();
 
     public Usuarios(String nombre, String contrasenia, boolean esAdmin) {
         this.nombre = nombre;
@@ -15,85 +15,70 @@ public class Usuarios {
     }
 
     // METODOS
-
-    public void iniciarSesion(Scanner teclado, EstadisticasReportes estadisticas, Libros libros) {
-        System.out.print("Nombre de usuario: ");
-        String nombreIngresado = teclado.nextLine();
-
-        System.out.print("Contraseña: ");
-        String contraseniaIngresada = teclado.nextLine();
-
-        if (this.nombre.equals(nombreIngresado) && this.contrasenia.equals(contraseniaIngresada)) {
-            if (this.esAdmin) {
-                System.out.println("\n--- Bienvenido, " + this.nombre + ". Eres ADMINISTRADOR ---");
-                System.out.println("¿Qué movimientos desea realizar?");
-                System.out.println("1. Registrar nuevo usuario");
-                System.out.println("2. Consultar información de usuarios registrados");
+    public void menuAdmin(Scanner teclado, EstadisticasReportes estadisticas, Libros libros) {
+        if (this.esAdmin) {
+            System.out.println("\n--- Bienvenido, " + this.nombre + ". Eres ADMINISTRADOR ---");
+            System.out.println("¿Qué movimientos desea realizar?");
+            System.out.println("1. Registrar nuevo usuario");
+            System.out.println("2. Consultar información de usuarios registrados");
+            System.out.println("0. SALIR");
+            String opcion = teclado.nextLine();
+            
+            if (opcion.equals("1")) {
+                registrarUsuario(teclado);
+            } else if (opcion.equals("2")) {
+                consultarUsuarios();
+            } else if (opcion.equals("0")) {
+                System.out.println("Saliendo...");
+            } else System.out.println("Opción no válida.");
+        } else {
+            System.out.println("\n--- Bienvenido, " + this.nombre + " ---");
+            boolean salir = false;
+            while (!salir) {
+                System.out.println("¿Qué desea hacer?");
+                System.out.println("1. Buscar libros por categoría");
+                System.out.println("2. Buscar libros por título");
+                System.out.println("3. Buscar libros por autor");
+                System.out.println("4. Mostrar todos los libros disponibles");
+                System.out.println("5. Realizar préstamo de libro");
+                System.out.println("6. Devolver libro prestado");
                 System.out.println("0. SALIR");
                 String opcion = teclado.nextLine();
-                
-                if (opcion.equals("1")) {
-                    registrarUsuario(teclado);
-                } else if (opcion.equals("2")) {
-                    consultarUsuarios();
-                } else if (opcion.equals("0")) {
-                    System.out.println("Saliendo...");
-                } else {
-                    System.out.println("Opción no válida.");
-                }
-            } else {
-                System.out.println("\n--- Bienvenido, " + this.nombre + " ---");
-                boolean salir = false;
-                while (!salir) {
-                    System.out.println("¿Qué desea hacer?");
-                    System.out.println("1. Buscar libros por categoría");
-                    System.out.println("2. Buscar libros por título");
-                    System.out.println("3. Buscar libros por autor");
-                    System.out.println("4. Mostrar todos los libros disponibles");
-                    System.out.println("5. Realizar préstamo de libro");
-                    System.out.println("6. Devolver libro prestado");
-                    System.out.println("0. SALIR");
-                    String opcion = teclado.nextLine();
 
-                    switch (opcion) {
-                        case "1" -> {
-                            System.out.println("Introduzca la categoría del libro: ");
-                            String categoria = teclado.nextLine();
-                            libros.buscarLibrosPorCategoria(categoria);
-                        }
-                        case "2" -> {
-                            System.out.println("Introduzca el título del libro: ");
-                            String titulo = teclado.nextLine();
-                            libros.buscarLibrosPorTitulo(titulo);
-                        }
-                        case "3" -> {
-                            System.out.println("Introduzca el autor del libro: ");
-                            String autor = teclado.nextLine();
-                            libros.buscarLibrosPorAutor(autor);
-                        }
-                        case "4" -> {
-                            libros.buscarLibro();
-                        }   
-                        case "5" -> {
-                            System.out.println("Introduzca el título del libro a prestar: ");
-                            String libroPrestar = teclado.nextLine();
-                            estadisticas.registrarPrestamo(libroPrestar, this.nombre);
-                        }
-                        case "6" -> {
-                            System.out.println("Introduzca el título del libro a devolver: ");
-                            String libroDevolver = teclado.nextLine();
-                            estadisticas.devolverPrestamo(libroDevolver);
-                        }
-                        case "0" -> {
-                            salir = true;
-                            System.out.println("Saliendo...");
-                        }
-                        default -> System.out.println("Opción no válida.");
+                switch (opcion) {
+                    case "1" -> {
+                        System.out.println("Introduzca la categoría del libro: ");
+                        String categoria = teclado.nextLine();
+                        libros.buscarLibrosPorCategoria(categoria);
                     }
+                    case "2" -> {
+                        System.out.println("Introduzca el título del libro: ");
+                        String titulo = teclado.nextLine();
+                        libros.buscarLibrosPorTitulo(titulo);
+                    }
+                    case "3" -> {
+                        System.out.println("Introduzca el autor del libro: ");
+                        String autor = teclado.nextLine();
+                        libros.buscarLibrosPorAutor(autor);
+                    }
+                    case "4" -> libros.buscarLibro();
+                    case "5" -> {
+                        System.out.println("Introduzca el título del libro a prestar: ");
+                        String libroPrestar = teclado.nextLine();
+                        estadisticas.registrarPrestamo(libroPrestar, this.nombre);
+                    }
+                    case "6" -> {
+                        System.out.println("Introduzca el título del libro a devolver: ");
+                        String libroDevolver = teclado.nextLine();
+                        estadisticas.devolverPrestamo(libroDevolver);
+                    }
+                    case "0" -> {
+                        salir = true;
+                        System.out.println("Saliendo...");
+                    }
+                    default -> System.out.println("Opción no válida.");
                 }
             }
-        } else {
-            System.out.println("Nombre de usuario o contraseña incorrectos.");
         }
     }
 
@@ -106,7 +91,8 @@ public class Usuarios {
         System.out.print("¿Es administrador? (s/n): ");
         String respuesta = teclado.nextLine();
         boolean esAdmin = respuesta.equalsIgnoreCase("s");
-        new Usuarios(nombre, contrasenia, esAdmin);
+        Usuarios nuevoUsuario = new Usuarios(nombre, contrasenia, esAdmin);
+        listaUsuarios.add(nuevoUsuario);
         System.out.println("Usuario registrado con éxito.");
 
         teclado.close();
@@ -123,7 +109,6 @@ public class Usuarios {
     }
 
     // GETTERS Y SETTERS
-
     public String getNombre() {
         return this.nombre;
     }

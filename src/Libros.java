@@ -18,8 +18,7 @@ public class Libros {
     
     
     // METODOS
-
-    public void agregarLibros(Libros libro) {
+    public void agregarLibros() {
         Scanner teclado = new Scanner(System.in);
 
         System.out.println("Introduzca el nombre del libro: ");
@@ -29,11 +28,16 @@ public class Libros {
         System.out.println("Introduzca la categoría del libro: ");
         String categoria = teclado.nextLine();
 
-        if (nombre.equals(this.nombre)) {
-            System.out.println("El libro ya existe");
-        } else {
-            System.out.println("Libro añadido con éxito");
-            listaLibros.add(libro);
+        boolean libroExiste = false;
+        for (Libros l : listaLibros) {
+            if (l.getNombre().equals(nombre)) {
+                libroExiste = true;
+                System.out.println("El libro ya existe");
+            } else {
+                System.out.println("Libro añadido con éxito");
+                Categoria cat = Categoria.valueOf(categoria.toUpperCase());
+                listaLibros.add(new Libros(nombre, autor, cat, false));
+            }
         }
     }
 
@@ -42,12 +46,17 @@ public class Libros {
 
         System.out.println("Introduzca el nombre del libro que desea eliminar: ");
         String nombre = teclado.nextLine();
-
-        if (nombre.equals(this.nombre)) {
-            listaLibros.remove(this);
-            System.out.println("Libro eliminado con éxito");
-        } else {
-            System.out.println("El libro no existe");            
+        boolean encontrado = false;
+        for (Libros libro : listaLibros) {
+            if (libro.getNombre().equals(nombre)) {
+                listaLibros.remove(libro);
+                System.out.println("Libro eliminado con éxito");
+                encontrado = true;
+                break;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("El libro no se encontró en la lista");
         }
     }
 
@@ -120,7 +129,6 @@ public class Libros {
 
 
     // GETTERS Y SETTERS
-
     public String getNombre() {
         return this.nombre;
     }

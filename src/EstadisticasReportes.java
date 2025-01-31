@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class EstadisticasReportes {
     private String[] librosPrestados;
     private int[] cantidadPrestamos;
@@ -7,32 +9,54 @@ public class EstadisticasReportes {
     private int totalPrestamos;
     private int prestamosActivos;
 
-    public EstadisticasReportes(String[] librosPrestados, int[] cantidadPrestamos, String[] usuarios2,
+    public EstadisticasReportes(String[] librosPrestados, int[] cantidadPrestamos, String[] usuarios,
             int[] prestamosPorUsuario, int totalPrestamos, int prestamosActivos) {
         this.librosPrestados = librosPrestados;
         this.cantidadPrestamos = cantidadPrestamos;
-        this.usuarios = usuario;
+        this.usuarios = usuarios;
         this.prestamosPorUsuario = prestamosPorUsuario;
         this.totalPrestamos = totalPrestamos;
         this.prestamosActivos = prestamosActivos;
     }
 
     // METODOS
+    public void menuEstadisticas(Scanner teclado) {
+        boolean salir = false;
+        while (!salir) {
+            System.out.println("\n--- Menú de Estadísticas ---");
+            System.out.println("1. Mostrar número de préstamos");
+            System.out.println("2. Listar libros más prestados");
+            System.out.println("3. Mostrar usuario con más préstamos");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            String opcion = teclado.nextLine();
+
+            switch (opcion) {
+                case "1" -> mostrarNumeroPrestamos();
+                case "2" -> listarLibrosMasPrestados();
+                case "3" ->  mostrarUsuarioMasPrestamos();
+                case "0" -> {
+                    salir = true;
+                    System.out.println("Saliendo del menú de estadísticas...");
+                }
+                default -> System.out.println("Opción no válida.");
+            }
+        }
+    }
 
     public void registrarPrestamo(String libro, String usuario) {
         boolean libroExiste = false;
         boolean usuarioExiste = false;
 
         for (int i = 0; i < librosPrestados.length; i++) {
+            // Registrar libro si no existe en la lista
             if (librosPrestados[i] != null && librosPrestados[i].equals(libro)) {
                 cantidadPrestamos[i]++;
                 libroExiste = true;
-                break;
             } else if (librosPrestados[i] == null) {
                 librosPrestados[i] = libro;
                 cantidadPrestamos[i] = 1;
                 libroExiste = true;
-                break;
             }
         }
     }
@@ -45,7 +69,6 @@ public class EstadisticasReportes {
                 libroEncontrado = true;
                 prestamosActivos--;
                 System.out.println("El libro '" + libro + "' ha sido devuelto.");
-                break;
             }
         }
         if (!libroEncontrado) {
@@ -95,4 +118,62 @@ public class EstadisticasReportes {
             System.out.println("No hay usuarios con préstamos activos.");
         }
     }
+
+    // GETTERS Y SETTERS
+    public String[] getLibrosPrestados() {
+        return this.librosPrestados;
+    }
+
+    public void setLibrosPrestados(String[] librosPrestados) {
+        this.librosPrestados = librosPrestados;
+    }
+
+    public int[] getCantidadPrestamos() {
+        return this.cantidadPrestamos;
+    }
+
+    public void setCantidadPrestamos(int[] cantidadPrestamos) {
+        this.cantidadPrestamos = cantidadPrestamos;
+    }
+
+    public String[] getUsuario() {
+        return this.usuario;
+    }
+
+    public void setUsuario(String[] usuario) {
+        this.usuario = usuario;
+    }
+
+    public String[] getUsuarios() {
+        return this.usuarios;
+    }
+
+    public void setUsuarios(String[] usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public int[] getPrestamosPorUsuario() {
+        return this.prestamosPorUsuario;
+    }
+
+    public void setPrestamosPorUsuario(int[] prestamosPorUsuario) {
+        this.prestamosPorUsuario = prestamosPorUsuario;
+    }
+
+    public int getTotalPrestamos() {
+        return this.totalPrestamos;
+    }
+
+    public void setTotalPrestamos(int totalPrestamos) {
+        this.totalPrestamos = totalPrestamos;
+    }
+
+    public int getPrestamosActivos() {
+        return this.prestamosActivos;
+    }
+
+    public void setPrestamosActivos(int prestamosActivos) {
+        this.prestamosActivos = prestamosActivos;
+    }
+
 }

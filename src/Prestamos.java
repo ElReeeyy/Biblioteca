@@ -3,12 +3,12 @@ public class Prestamos {
     private int cantidadLibrosPrestados;
     private Libros libro;
 
-    public Prestamos(String[] librosPrestados, int cantidadLibrosPrestados, Libros libro) {
+    public Prestamos() {
         this.librosPrestados = new String[5];
         this.cantidadLibrosPrestados = 0;
-        this.libro = libro;
     }
 
+    // METODOS
     public void prestarLibro(String libro) {
         if (cantidadLibrosPrestados < 5) {
             librosPrestados[cantidadLibrosPrestados] = libro;
@@ -45,4 +45,30 @@ public class Prestamos {
             System.out.println("No tienes permisos para consultar los libros prestados.");
         }
     }
+
+    // GETTERS Y SETTERS
+    public String[] getLibrosPrestados() {
+        return this.librosPrestados;
+    }
+
+    public void setLibrosPrestados(String[] librosPrestados) {
+        this.librosPrestados = librosPrestados;
+    }
+
+    public int getCantidadLibrosPrestados() {
+        return this.cantidadLibrosPrestados;
+    }
+
+    public void setCantidadLibrosPrestados(int cantidadLibrosPrestados) {
+        this.cantidadLibrosPrestados = cantidadLibrosPrestados;
+    }
+
+    public Libros getLibro() {
+        return this.libro;
+    }
+
+    public void setLibro(Libros libro) {
+        this.libro = libro;
+    }
+
 }

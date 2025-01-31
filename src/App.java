@@ -21,6 +21,21 @@ public class App {
         }
     }
 
+    public static void iniciarSesion(Scanner teclado, EstadisticasReportes estadisticas) {
+        System.out.print("Nombre de usuario: ");
+        String nombreIngresado = teclado.nextLine();
+        System.out.print("Contraseña: ");
+        String contraseniaIngresada = teclado.nextLine();
+
+        for (Usuarios user : Usuarios.listaUsuarios) {
+            if (user != null && user.getNombre().equals(nombreIngresado) && user.getContrasenia().equals(contraseniaIngresada)) {
+                user.menuAdmin(teclado, estadisticas, new Libros(null, null, null, false));
+                return;
+            }
+        }
+        System.out.println("Nombre de usuario o contraseña incorrectos.");
+    }
+
     public static void main(String[] args) throws Exception {
         Scanner teclado = new Scanner(System.in);
         boolean salir = false;
@@ -31,6 +46,13 @@ public class App {
         Usuarios usuario3 = new Usuarios("Pepe", "1234", false);
         Usuarios usuario4 = new Usuarios("Miguel", "1234", false);
         Usuarios usuario5 = new Usuarios("Jose Antonio", "1234", false);
+
+        // Añadir usuarios a la lista
+        Usuarios.listaUsuarios.add(usuario);
+        Usuarios.listaUsuarios.add(usuario2);
+        Usuarios.listaUsuarios.add(usuario3);
+        Usuarios.listaUsuarios.add(usuario4);
+        Usuarios.listaUsuarios.add(usuario5);
 
         // CREACION DE LIBROS
         Libros libro1 = new Libros("El señor de los anillos", "J.R.R. Tolkien", Categoria.NOVELA, false);
@@ -53,13 +75,17 @@ public class App {
 
         do {
             switch (menu(teclado)) {
-                case "1" -> {}
-                case "2" -> {}
+                case "1" -> iniciarSesion(teclado, estadisticas);
+                case "2" -> estadisticas.menuEstadisticas(teclado);
                 case "0" -> {
                     salir = true;
                     System.out.println("Gracias por usar nuestra aplicación.");
                 }
+                default -> System.out.println("Opción no válida.");
             }
-        } while(!salir);
+        } while (!salir);
+
+        teclado.close();
+
     }
-}
+}    
